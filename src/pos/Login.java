@@ -122,7 +122,7 @@ public class Login extends javax.swing.JFrame {
         String password = passwordTF.getText();
 
         if (username.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "You must enter the username", "Login", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "username is required", "Login", JOptionPane.ERROR_MESSAGE);
         } else {
             if (employee.authanticate(username, password)) {
                 openDashboard();
