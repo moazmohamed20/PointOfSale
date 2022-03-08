@@ -17,7 +17,7 @@ public class DBManager {
 
     // DB DATA
     
-    private String connectionURL = "jdbc:derby://localhost:1527/" + System.getProperty("user.dir") + "/DB";
+    private String connectionURL = "jdbc:derby://localhost:1527/DB";
     private Connection connection;
     private Statement statement;
 
