@@ -108,74 +108,43 @@ public class Report extends javax.swing.JDialog {
         String totalQuery = "";
         switch (reportType) {
             case "Purchase Invoices":
-                reportQuery = "SELECT \"NO\", DATE, NAME AS SUPPLIER, TOTAL "
-                        + "FROM PURCHASEINVOICE "
-                        + "JOIN SAFE ON SAFEID = SAFE.ID "
-                        + "LEFT JOIN SUPPLIERS ON SUPPLIERID = SUPPLIERS.ID";
-                totalQuery = "SELECT SUM(TOTAL) FROM PURCHASEINVOICE";
+                reportQuery = "SELECT * FROM PURCHASE_INVOICES_VIEW";
+                totalQuery = "SELECT SUM(TOTAL) FROM PURCHASE_INVOICES_VIEW";
                 break;
+                
             case "Purchases":
-                reportQuery = "SELECT DATE, NAME AS PRODUCT, PI_P.COST, PI_P.QUANTITY, PI_P.COST * PI_P.QUANTITY AS TOTAL "
-                        + "FROM PURCHASEINVOICE_PRODUCT AS PI_P "
-                        + "JOIN PRODUCTS ON PRODUCTCODE = PRODUCTS.CODE "
-                        + "JOIN PURCHASEINVOICE ON INVOICENO = PURCHASEINVOICE.\"NO\" "
-                        + "JOIN SAFE ON SAFEID = SAFE.ID "
-                        + "ORDER BY INVOICENO";
-                totalQuery = "SELECT SUM(COST * QUANTITY) FROM PURCHASEINVOICE_PRODUCT";
+                reportQuery = "SELECT * FROM PURCHASES_VIEW";
+                totalQuery = "SELECT SUM(TOTAL) FROM PURCHASES_VIEW";
                 break;
 
             case "Return Invoices":
-                reportQuery = "SELECT RETURNINVOICE.\"NO\", DATE, NAME AS CUSTOMER, RETURNINVOICE.TOTAL "
-                        + "FROM RETURNINVOICE "
-                        + "JOIN SAFE ON SAFEID = SAFE.ID "
-                        + "JOIN SALEINVOICE ON SALEINVOICENO = SALEINVOICE.\"NO\" LEFT "
-                        + "JOIN CUSTOMERS ON CUSTOMERID = CUSTOMERS.ID";
-                totalQuery = "SELECT SUM(TOTAL) FROM RETURNINVOICE";
+                reportQuery = "SELECT * FROM RETURN_INVOICES_VIEW";
+                totalQuery = "SELECT SUM(TOTAL) FROM RETURN_INVOICES_VIEW";
                 break;
+                
             case "Returns":
-                reportQuery = "SELECT DATE, NAME AS PRODUCT, SI_P.PRICE, RI_P.QUANTITY, SI_P.DISCOUNT, ((SI_P.PRICE * RI_P.QUANTITY) - SI_P.DISCOUNT) AS TOTAL "
-                        + "FROM RETURNINVOICE_PRODUCT AS RI_P "
-                        + "JOIN PRODUCTS ON PRODUCTCODE = PRODUCTS.CODE "
-                        + "JOIN RETURNINVOICE ON INVOICENO = RETURNINVOICE.\"NO\" "
-                        + "JOIN SAFE ON SAFEID = SAFE.ID "
-                        + "JOIN SALEINVOICE_PRODUCT AS SI_P ON (SALEINVOICENO = SI_P.INVOICENO AND RI_P.PRODUCTCODE = SI_P.PRODUCTCODE) "
-                        + "ORDER BY RI_P.INVOICENO";
-                totalQuery = "SELECT SUM((PRICE * RI_P.QUANTITY) - DISCOUNT) "
-                        + "FROM RETURNINVOICE_PRODUCT AS RI_P "
-                        + "JOIN RETURNINVOICE ON INVOICENO = RETURNINVOICE.\"NO\" "
-                        + "JOIN SALEINVOICE_PRODUCT AS SI_P ON (SALEINVOICENO = SI_P.INVOICENO AND RI_P.PRODUCTCODE = SI_P.PRODUCTCODE)";
+                reportQuery = "SELECT * FROM RETURNS_VIEW";
+                totalQuery = "SELECT SUM(TOTAL) FROM RETURNS_VIEW";
                 break;
 
             case "Sale Invoices":
-                reportQuery = "SELECT \"NO\", DATE, NAME AS CUSTOMER, TOTAL "
-                        + "FROM SALEINVOICE JOIN SAFE ON SAFEID = SAFE.ID LEFT "
-                        + "JOIN CUSTOMERS ON CUSTOMERID = CUSTOMERS.ID";
-                totalQuery = "SELECT SUM(TOTAL) FROM SALEINVOICE";
+                reportQuery = "SELECT * FROM SALE_INVOICES_VIEW";
+                totalQuery = "SELECT SUM(TOTAL) FROM SALE_INVOICES_VIEW";
                 break;
 
             case "Sales":
-                reportQuery = "SELECT DATE, NAME AS PRODUCT, SI_P.PRICE, SI_P.QUANTITY, SI_P.DISCOUNT, ((SI_P.PRICE * SI_P.QUANTITY) - SI_P.DISCOUNT) AS TOTAL "
-                        + "FROM SALEINVOICE_PRODUCT AS SI_P "
-                        + "JOIN PRODUCTS ON PRODUCTCODE = PRODUCTS.CODE "
-                        + "JOIN SALEINVOICE ON INVOICENO = SALEINVOICE.\"NO\" "
-                        + "JOIN SAFE ON SAFEID = SAFE.ID "
-                        + "ORDER BY INVOICENO";
-                totalQuery = "SELECT SUM((PRICE * QUANTITY) - DISCOUNT) FROM SALEINVOICE_PRODUCT";
+                reportQuery = "SELECT * FROM SALES_VIEW";
+                totalQuery = "SELECT SUM(TOTAL) FROM SALES_VIEW";
                 break;
 
             case "Expenses":
-                reportQuery = "SELECT DATE, EXPENSE, COST "
-                        + "FROM EXPENSES "
-                        + "JOIN SAFE ON SAFEID = SAFE.ID "
-                        + "ORDER BY DATE";
-                totalQuery = "SELECT SUM(COST) FROM EXPENSES";
+                reportQuery = "SELECT * FROM EXPENSES_VIEW";
+                totalQuery = "SELECT SUM(COST) FROM EXPENSES_VIEW";
                 break;
 
             case "Safe":
-                reportQuery = "SELECT DATE, STATEMENT, EMPLOYEE, PRICE "
-                        + "FROM SAFE "
-                        + "ORDER BY DATE";
-                totalQuery = "SELECT SUM(PRICE) FROM SAFE";
+                reportQuery = "SELECT * FROM SAFE_VIEW";
+                totalQuery = "SELECT SUM(PRICE) FROM SAFE_VIEW";
                 break;
         }
         totalLabel.setText(String.valueOf(calcReportTotal(totalQuery)));
