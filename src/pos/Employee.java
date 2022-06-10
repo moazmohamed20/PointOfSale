@@ -163,7 +163,7 @@ public class Employee extends javax.swing.JDialog {
             usernameTF.requestFocus();
             JOptionPane.showMessageDialog(this, "Username already used", "Employees", JOptionPane.ERROR_MESSAGE);
 
-        } else if (username.isEmpty()) {
+        } else if (username == null || username.isEmpty()) {
             saveEmployee(newUsername, newPassword);
 
             clearFields();

@@ -219,7 +219,7 @@ public class ReturnInvoice extends javax.swing.JFrame {
     }
 
     public int saveInvoiceRecord(int saleInvoiceNo, int safeID, double total) {
-        return dbManager.executeQuery("INSERT INTO RETURNINVOICE VALUES(DEFAULT, " + saleInvoiceNo + ", " + safeID + ", " + total + ")");
+        return dbManager.executeQuery("INSERT INTO RETURNINVOICE VALUES(DEFAULT, " + safeID + ", " + saleInvoiceNo + ", " + total + ")");
     }
 
     public void saveItemsRecords(int invoiceNo, DefaultTableModel items) {

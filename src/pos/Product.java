@@ -247,7 +247,7 @@ public class Product extends javax.swing.JDialog {
             codeTF.requestFocus();
             JOptionPane.showMessageDialog(this, "Code already used", "Products", JOptionPane.ERROR_MESSAGE);
 
-        } else if (code.isEmpty()) {
+        } else if (code == null || code.isEmpty()) {
             saveProduct(newCode, newName, NumberUtils.toDouble(costTF.getText().trim()), NumberUtils.toDouble(priceTF.getText().trim()), NumberUtils.toInt(quantityTF.getText().trim()), NumberUtils.toDouble(discountTF.getText().trim()));
 
             clearFields();

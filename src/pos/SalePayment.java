@@ -232,7 +232,6 @@ public class SalePayment extends javax.swing.JDialog {
         String address = table.getValueAt(customersTable.getSelectedRow(), 3).toString();
 
         customerID = id;
-        System.out.println("customerID: " + customerID);
         nameTF.setText(name);
         phoneTF.setText(phone);
         addressTA.setText(address);
